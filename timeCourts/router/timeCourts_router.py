@@ -31,6 +31,11 @@ def change_state(id:str,task_id:str,background_tasks: BackgroundTasks):
     id_list = [i for i in id.split(",")]
     return timeCourts_infrastructure.change_status_available(id_list)
 
+@router.get("/Available/{id}",response_model=response.APIResponse, dependencies=[Depends(JWTBearer())])
+def change_state(id:str):
+    id_list = [i for i in id.split(",")]
+    return timeCourts_infrastructure.change_status_available(id_list)
+
 @router.get("/Unavalible/{id}",response_model=response.APIResponse, dependencies=[Depends(JWTBearer())])
 def change_state(id:str):
     id_list = [i for i in id.split(",")]
