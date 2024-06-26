@@ -25,8 +25,9 @@ def change_state(id:str, background_tasks: BackgroundTasks):
     background_tasks.add_task(scheduler_job,timeCourts_infrastructure.change_status_available, 10,task_id, id_list)
     return timeCourts_infrastructure.change_status_reserved(id_list, task_id)
 
-@router.get("/Available/{id}",response_model=response.APIResponse, dependencies=[Depends(JWTBearer())])
-def change_state(id:str):
+@router.get("/Available/{id}/{task_id}",response_model=response.APIResponse, dependencies=[Depends(JWTBearer())])
+def change_state(id:str,task_id:str,background_tasks: BackgroundTasks):
+    background_tasks.add_task(cancelar_tarea, task_id)
     id_list = [i for i in id.split(",")]
     return timeCourts_infrastructure.change_status_available(id_list)
 
